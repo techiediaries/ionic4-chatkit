@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Chat Room</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeChat()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+</ion-header>
+  
+  <ion-content #scrollArea padding>
+    
+      <div class="container">
+  
+          <div *ngFor="let msg of messageList" class="message left" >
+  
+            <img class="user-img" [src]="msg.sender.avatarURL" alt="" src="">
+            <!--<ion-spinner name="dots" *ngIf="msg.status === 'pending'"></ion-spinner>-->
+            <div class="msg-detail">
+              <div class="msg-info">
+                    <p>
+                      {{msg.sender.name}}
+                    </p>
+              </div>    
+              <div class="msg-content">
+                <span class="triangle"></span>
+                <p class="line-breaker ">{{msg.text}}</p>
+              </div>
+            </div>
+          </div>
+      
+        </div>
+  
+  </ion-content>
+  
+  <ion-footer no-border>
+      <ion-spinner name="dots" *ngIf="userIsTyping;">
+        
+      </ion-spinner>
+
+      <div class="input-wrap">
+        
+        <textarea #messageInput
+                  placeholder="Enter your message!"
+                  [(ngModel)]="chatMessage"
+                  (keyup.enter)="sendMessage()"
+                  (focusin)="onFocus()">
+        </textarea>
+        <button ion-button clear icon-only item-right (click)="sendMessage()">
+          <ion-icon name="ios-send" ios="ios-send" md="md-send"></ion-icon>
+        </button>
+      </div>
+     
+    </ion-footer>
